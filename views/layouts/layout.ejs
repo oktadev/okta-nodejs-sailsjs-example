@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Garudino - A Place to Manage your Garden</title>
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
+  <%/* <meta name="robots" content="noindex"> */%>
+
+  <!--STYLES-->
+  <link rel="stylesheet" href="/dependencies/bootstrap-4/bootstrap-4.css">
+  <link rel="stylesheet" href="/dependencies/fontawesome.css">
+  <!--STYLES END-->
+
+</head>
+
+<body>
+  <div class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <%if (req.session.passport) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/Dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/History">History</a>
+          </li>
+          <% } %>
+        </ul>
+
+          <%if (!req.session.passport) { %>
+          <div>
+            <a class="btn btn-outline-success my-2 my-sm-0" href="/login">Login</a>
+          </div>
+          <% } else { %>
+          <div>
+            <form action="users/logout" method="POST">
+              <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+            </form>
+          </div>
+          <% } %>
+
+      </div>
+    </nav>
+
+
+    <%- body %>
+  </div>
+
+  <!--SCRIPTS-->
+  <script src="/dependencies/sails.io.js"></script>
+  <script src="/dependencies/lodash.js"></script>
+  <script src="/dependencies/jquery.min.js"></script>
+  <script src="/dependencies/vue.js"></script>
+  <script src="/dependencies/vue-router.js"></script>
+  <script src="/dependencies/bootstrap-4/bootstrap-4.bundle.js"></script>
+  <script src="/dependencies/cloud.js"></script>
+  <script src="/dependencies/moment.js"></script>
+  <script src="/dependencies/parasails.js"></script>
+  <script src="/js/pages/dashboard.page.js"></script>
+  <script src="/js/pages/history.page.js"></script>
+  <!--SCRIPTS END-->
+</body>
+
+</html>
